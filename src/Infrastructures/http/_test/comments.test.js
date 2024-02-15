@@ -50,12 +50,9 @@ describe('end point add comment', () => {
 
     it('should response 401 when request not contain access token', async () => {
       const server = await createServer(container);
-
-      const { userId } = await LoginHelper
-        .getAccessTokenAndUserIdHelper({ server });
       const threadId = 'thread-123';
 
-      await ThreadTableTestHelper.addThread({ id: threadId, user_id: userId });
+      await ThreadTableTestHelper.addThread({ id: threadId, user_id: 'user-123' });
 
       const response = await server.inject({
         method: 'POST',

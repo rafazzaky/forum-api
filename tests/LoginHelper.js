@@ -3,7 +3,7 @@
 const LoginHelper = {
   async getAccessTokenAndUserIdHelper({ server }) {
     const userPayload = {
-      username: Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5),
+      username: Math.random().toString(36).substring(2, 5),
       password: 'secret',
     };
 

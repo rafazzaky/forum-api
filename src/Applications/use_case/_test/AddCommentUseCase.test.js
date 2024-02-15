@@ -1,11 +1,8 @@
 const NewComment = require('../../../Domains/comments/entities/NewComment');
 const AddedComment = require('../../../Domains/comments/entities/AddedComment');
-const AddedThread = require('../../../Domains/threads/entities/AddedThread');
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const AddCommentUseCase = require('../AddCommentUseCase');
-
-const date = new Date();
 
 describe('AddCommentUseCase', () => {
   it('should orchestrating the add comment action correctly', async () => {
@@ -18,8 +15,6 @@ describe('AddCommentUseCase', () => {
     const expectedAddedComment = new AddedComment({
       id: 'comment-123',
       content: useCasePayload.content,
-      threadId: useCasePayload.threadId,
-      date,
       user_id: useCasePayload.user_id,
     });
 
@@ -27,19 +22,12 @@ describe('AddCommentUseCase', () => {
     const mockThreadRepository = new ThreadRepository();
 
     mockThreadRepository.verifyAvailableThread = jest.fn()
-      .mockImplementation(() => Promise.resolve(new AddedThread({
-        id: 'thread-123',
-        title: 'sebuah thread',
-        body: 'ini adalah isi thread',
-        user_id: 'user-123',
-      })));
+      .mockImplementation(() => Promise.resolve(1));
     mockCommentRepository.addComment = jest.fn()
       .mockImplementation(() => Promise.resolve(
         new AddedComment({
           id: 'comment-123',
           content: useCasePayload.content,
-          threadId: useCasePayload.threadId,
-          date,
           user_id: useCasePayload.user_id,
         }),
       ));

@@ -32,9 +32,26 @@ describe('GetThreadUseCase', () => {
 
     /** mocking needed function */
     mockThreadRepository.getThreadById = jest.fn()
-      .mockImplementation(() => Promise.resolve(expectedThread));
+      .mockImplementation(() => Promise.resolve(
+        {
+          id: 'thread-123',
+          title: 'ini adalah judul thread',
+          body: 'ini adalah isi thread',
+          date: '2022',
+          username: 'dicoding',
+        },
+      ));
     mockCommentRepository.getCommentsByThreadId = jest.fn()
-      .mockImplementation(() => Promise.resolve(expectedComments));
+      .mockImplementation(() => Promise.resolve(
+        [
+          {
+            id: 'comment-123',
+            username: 'dicoding',
+            date: '2022',
+            content: 'ini adalah isi komentar',
+          },
+        ],
+      ));
 
     const mockGetThreadUseCase = new GetThreadUseCase({
       commentRepository: mockCommentRepository,

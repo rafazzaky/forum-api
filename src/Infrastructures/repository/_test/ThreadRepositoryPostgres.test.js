@@ -134,6 +134,9 @@ describe('ThreadRepositoryPostgres', () => {
 
       // Action & Assert
       await expect(threadRepositoryPostgres.verifyAvailableThread('thread-test')).resolves.not.toThrowError(NotFoundError);
+
+      const existingRowCount = await threadRepositoryPostgres.verifyAvailableThread('thread-test');
+      expect(existingRowCount).toBe(1);
     });
   });
 });
